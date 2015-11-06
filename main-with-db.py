@@ -3,9 +3,10 @@ from flask_restful import Resource, Api
 from flask_restful import reqparse
 import mysql.connector
 
+# GET /cmu-campus-app/?poi_id=2 HTTP/1.1
+
 app = Flask(__name__)
 api = Api(app)
-
 cnx = mysql.connector.connect(user="root",password="cmu18099",host="127.0.0.1",database="18099db")
 
 @app.after_request
@@ -17,34 +18,6 @@ def after_request(response):
 
 class GetPOIData(Resource):
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('poi_id')
-        args = parser.parse_args()
-        cursor = cnx.cursor()
-
-        poi_id = args["poi_id"]
-        print(poi_id)
-        # connect to mysql server
-        # run sql queries
-        # get the data as a python variable
-        return {
-            "success": True,
-            "data": [{
-                "poi_id": 5,
-                "poi_data": {
-                    "hero_image": "http://127.0.0.1/~vinays/cmu-campus-app/assets/hero_images/img_001",
-                    "description": "Gates Hall",
-                    "images": [
-                        "http://52.27.55.252/content/buggy/media/photos/regular/buggy1.jpg",
-                        "http://52.27.55.252/content/buggy/media/photos/regular/buggy2.jpg",
-                        "http://52.27.55.252/content/buggy/media/photos/regular/buggy3.jpeg"
-                    ]
-                }
-            }]
-        }
-
-def GetPOIDataFromDB(Resource):
-        def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('poi_id')
         args = parser.parse_args()
@@ -78,9 +51,25 @@ def GetPOIDataFromDB(Resource):
                              }
 
         return return_value
+                
+        # get the data as a python variable
+#        return {
+#            "success": True,
+#            "data": [{
+#                "poi_id": 5,
+#                "poi_data": {
+#                    "hero_image": "http://127.0.0.1/~vinays/cmu-campus-app/assets/hero_images/img_001",
+#                    "description": "Gates Hall",
+#                    "images": [
+#                        "http://127.0.0.1/~vinays/cmu-campus-app/assets/img_001",
+#                        "http://127.0.0.1/~vinays/cmu-campus-app/assets/img_002",
+#                        "http://127.0.0.1/~vinays/cmu-campus-app/assets/img_003"
+#                    ]
+#                }
+#            }]
+#        }
 
-api.add_resource(GetPOIData, '/test/cmu-campus-app/')
-api.add_resource(GetPOIDataFromDB, '/cmu-campus-app/')
+api.add_resource(GetPOIData, '/cmu-campus-app/')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True,port=4999)
