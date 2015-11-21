@@ -54,11 +54,20 @@ class GetPOIDataFromDB(Resource):
         print(poi_id)
         # connect to mysql server
         # run sql queries
-        query = ("select exp_id,location,pathToMedia from content where exp_id="+str(poi_id))
+        query = ("select id,location,heroImage,description from content where id="+str(poi_id))
         print("query: "+query+"\n")
         cursor.execute(query)
-
         row = cursor.fetchone()
+        
+        images = []
+        query_images = ("select pathToMedia from contentTable where poiId="+str(poi_id))
+        cursor.execute(query_images)
+        row_images = cursor.fetchone()
+        while (row_images != None):
+            images.append(row_images[0])
+            row_images = cursor.fetchone()
+
+        
         if (not (row == None)):
             print ("POI found: "+str(poi_id)+".\n")
             # ID number (starting from 0) corresponds to columns passed to select above
@@ -68,7 +77,11 @@ class GetPOIDataFromDB(Resource):
                 "success": True,
                 "data": [{
                     "poi_id": poi_id,
-                    "poi_data": {}
+                    "poi_data": {
+                        "description" : row[3],
+                        "images" : images,
+                        "heroImage" : row[2]
+                    }
                     }]
                 }
         else:
