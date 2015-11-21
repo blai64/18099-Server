@@ -43,8 +43,8 @@ class GetPOIData(Resource):
             }]
         }
 
-def GetPOIDataFromDB(Resource):
-        def get(self):
+class GetPOIDataFromDB(Resource):
+    def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('poi_id')
         args = parser.parse_args()
