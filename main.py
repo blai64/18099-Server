@@ -50,15 +50,15 @@ class GetPOIDataFromDB(Resource):
         args = parser.parse_args()
         cursor = cnx.cursor()
 
-        poi_id = args["poi_id"]
-        print(poi_id)
+        poi_id = args['poi_id']
+        print("Poi id found: " + poi_id)
         # connect to mysql server
         
         # run sql queries
         
         # Query poi table
-        query = ("select id,locationId,heroImage,description from pois where id="+str(poi_id))
-        print("query: "+query+"\n")
+        query = ('select id,heroImage,description from pois where id='+str(poi_id))
+        print('query: '+query+'\n')
         cursor.execute(query)
         poi_row = cursor.fetchone()
         
@@ -72,9 +72,9 @@ class GetPOIDataFromDB(Resource):
             row_images = cursor.fetchone()
 
         #query location table
-        query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(poi_row[1]))
-        cursor.execute(query_images);
-        location_row = cursor.fetchone()
+        #query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(poi_row[1]))
+        #cursor.execute(query_images);
+        #location_row = cursor.fetchone()
 
         
         if (not (poi_row == None)):
@@ -86,14 +86,14 @@ class GetPOIDataFromDB(Resource):
                 "data": [{
                     "poi_id": poi_id,
                     "poi_data": {
-                        "description" : poi_row[3],
+                        "description" : poi_row[2],
                         "images" : images,
-                        "heroImage" : poi_row[2]
-                        "location" : {
-                            "lat" : location_row[0],
-                            "longi" : location_row[1],
-                            "locationCode" : location_row[2],
-                            "name" : location_row[3],
+                        "heroImage" : poi_row[1]
+                        #"location" : {
+                        #    "lat" : location_row[0],
+                        #    "longi" : location_row[1],
+                        #    "locationCode" : location_row[2],
+                        #    "name" : location_row[3],
                         }
 
                     }
