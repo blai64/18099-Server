@@ -86,8 +86,8 @@ class GetPOIDataFromDB(Resource):
             print ("POI found: "+str(poi_id)+".\n")
             # ID number (starting from 0) corresponds to columns passed to select above
 
-            for i in xrange(images.length):
-                print images[i]
+            for path in images:
+                print path
             
             return_value = {
                 "success": True,
