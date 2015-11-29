@@ -88,7 +88,7 @@ class GetPOIDataFromDB(Resource):
                     "poi_data": {
                         "description" : poi_row[3],
                         "images" : images,
-                        "heroImage" : poi_row[2]
+                        "heroImage" : poi_row[2],
                         "location" : {
                             "lat" : location_row[0],
                             "longi" : location_row[1],
