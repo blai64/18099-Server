@@ -94,7 +94,7 @@ class GetPOIDataFromDB(Resource):
                         #    "longi" : location_row[1],
                         #    "locationCode" : location_row[2],
                         #    "name" : location_row[3],
-                        }
+                        #}
 
                     }
                     }]
