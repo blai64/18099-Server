@@ -68,8 +68,8 @@ class GetPOIDataFromDB(Resource):
         cursor.execute(query_images)
 
         for row in cursor:
-            images.append('http://52.27.55.252/' + row[0].strip('/var/www/html/'))
-            print row
+            images.append('http://52.27.55.252/' + row[0].strip('"').lstrip('/var/www/html/'))
+            
 
         # row_images = cursor.fetchone()
         # while (row_images != None):
@@ -88,8 +88,6 @@ class GetPOIDataFromDB(Resource):
 
             for path in images:
                 print path
-
-            print poi_row[2]
             
             return_value = {
                 "success": True,
