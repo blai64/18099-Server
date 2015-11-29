@@ -64,12 +64,17 @@ class GetPOIDataFromDB(Resource):
         
         #query content table
         images = []
-        query_images = ("select pathToMedia from content where poiId="+str(poi_id))
+        query_images = ('select pathToMedia from content where poiId='+str(poi_id))
         cursor.execute(query_images)
-        row_images = cursor.fetchone()
-        while (row_images != None):
-            images.append(row_images[0])
-            row_images = cursor.fetchone()
+
+        for row in cursor:
+            images.append(row[0])
+            print row
+
+        # row_images = cursor.fetchone()
+        # while (row_images != None):
+        #     images.append(row_images[0])
+        #     row_images = cursor.fetchone()
 
         #query location table
         #query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(poi_row[1]))
@@ -80,6 +85,9 @@ class GetPOIDataFromDB(Resource):
         if (not (poi_row == None)):
             print ("POI found: "+str(poi_id)+".\n")
             # ID number (starting from 0) corresponds to columns passed to select above
+
+            for i in xrange(images.length):
+                print images[i]
             
             return_value = {
                 "success": True,
