@@ -57,7 +57,7 @@ class GetPOIDataFromDB(Resource):
         # run sql queries
         
         # Query poi table
-        query = ('select id,heroImage,description from pois where id='+str(poi_id))
+        query = ('select id,heroImage,description,locationId from pois where id='+str(poi_id))
         print('query: '+query+'\n')
         cursor.execute(query)
         poi_row = cursor.fetchone()
