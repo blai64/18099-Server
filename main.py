@@ -15,6 +15,9 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
   return response
 
+def fixImagePath(link):
+    return 'http://52.27.55.252/' + link.strip('"').lstrip('/var/www/html/')
+
 class GetPOIData(Resource):
     def get(self):
         parser = reqparse.RequestParser()
@@ -57,8 +60,8 @@ class GetPOIDataFromDB(Resource):
         # run sql queries
         
         # Query poi table
-        query = ('select id,heroImage,description,locationId from pois where id='+str(poi_id))
-        print('query: '+query+'\n')
+        query = ('select id,heroImage,description,name from pois where id='+str(poi_id))
+        print('query: '+ query +'\n')
         cursor.execute(query)
         poi_row = cursor.fetchone()
         
@@ -68,7 +71,7 @@ class GetPOIDataFromDB(Resource):
         cursor.execute(query_images)
 
         for row in cursor:
-            images.append('http://52.27.55.252/' + row[0].strip('"').lstrip('/var/www/html/'))
+            images.append(fixImagePath(row[0]))
             
 
         # row_images = cursor.fetchone()
@@ -96,7 +99,8 @@ class GetPOIDataFromDB(Resource):
                     "poi_data": {
                         "description" : poi_row[2],
                         "images" : images,
-                        "heroImage" : poi_row[1]
+                        "heroImage" : fixImagePath(poi_row[1]),
+                        "name" : poi_row[3]
                         #"location" : {
                         #    "lat" : location_row[0],
                         #    "longi" : location_row[1],
@@ -211,6 +215,10 @@ class GetMap(Resource):
                              "data": []
                              }
         return return_value
+
+
+
+
 
 
 
