@@ -92,7 +92,7 @@ class GetPOIDataFromDB(Resource):
             for path in images:
                 print path
 
-            print "HeroImage Path : " + fixImagePath(poi_row[1])
+            print "HeroImage Path : " + poi_row[1]
             
             return_value = {
                 "success": True,
