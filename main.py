@@ -123,26 +123,27 @@ class GetPOIDataFromDB(Resource):
         return return_value
 
 class GetDummyEvent(Resource):
-    return_value = {
-        "success": True,
-        "data": [{
-            "event_id": 1,
-            "event_data": {
-                "description" : "Web Dev Weekend is a cool event",
-                "startDateTime" : "Nov. 10, 11:00 AM",
-                "fbLink" : "www.facebook.com",
+    def get(self):
+        return_value = {
+            "success": True,
+            "data": [{
+                "event_id": 1,
+                "event_data": {
+                    "description" : "Web Dev Weekend is a cool event",
+                    "startDateTime" : "Nov. 10, 11:00 AM",
+                    "fbLink" : "www.facebook.com",
 
-                "location" : {
-                        "lat" : "40.441133", 
-                        "longi" : "-79.943771",
-                        "locationCode" : "HL",
-                        "name" : "Hunt Library"
+                    "location" : {
+                            "lat" : "40.441133", 
+                            "longi" : "-79.943771",
+                            "locationCode" : "HL",
+                            "name" : "Hunt Library"
+                    }
+
                 }
-
-            }
-        }]
-    }
-    return return_value
+            }]
+        }
+        return return_value
 
 
 class GetEventDataFromDB(Resource):
