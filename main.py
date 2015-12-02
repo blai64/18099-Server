@@ -160,7 +160,7 @@ class GetEventDataFromDB(Resource):
         # run sql queries
         
         # Query poi table
-        query = ("select id,locationId,startDateTime,fbLink,description from events where id="+str(event_id))
+        query = ("select id,locationId,startDateTime,fbLink,description,heroImage from events where id="+str(event_id))
         print("query: "+query+"\n")
         cursor.execute(query)
         event_row = cursor.fetchone()
@@ -184,7 +184,7 @@ class GetEventDataFromDB(Resource):
                         "description" : event_row[4],
                         "startDateTime" : event_row[2],
                         "fbLink" : event_row[3],
-
+                        "heroImage" : fixImagePath(event_row[5]),
                         "location" : {
                             "lat" : location_row[0],
                             "longi" : location_row[1],
@@ -201,6 +201,44 @@ class GetEventDataFromDB(Resource):
                              "data": []
                              }
 
+        return return_value
+
+class GetAllEvents(Resource):
+    def get(self):
+        events = []
+        query = ("select id,locationId,description,name,startDateTime,heroImage from events")
+        print("query: "+query+"\n")
+        cursor.execute(query)
+        events_row = cursor.fetchone()
+        while (events_row != None):
+            query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(pois_row[1]))
+            cursorL.execute(query)
+            location_row = cursorL.fetchone()
+            pois.append({"event_id" : event_row[0],
+                         "description" : event_row[2],
+                         "name" : event_row[3],
+                         "startDateTime" : event_row[4],
+                         "heroImage" : fixImagePath(event_row[5]),
+                         "location" : {
+                            "lat" : location_row[0],
+                            "longi" : location_row[1],
+                            "locationCode" : location_row[2],
+                            "name" : location_row[3]
+                            }
+                        })
+
+            events_row = cursor.fetchone()
+
+
+
+        if (not (events.length == 0)):
+            return_value = {
+                "success": True,
+                "events" : events
+                }
+        else:
+            return_value = { "success": False,
+                             }
         return return_value
 
 class GetDummyMap(Resource):
@@ -294,6 +332,8 @@ api.add_resource(GetEventDataFromDB, '/cmu-campus-app/events/')
 api.add_resource(GetMap, '/cmu-campus-app/map/')
 api.add_resource(GetDummyMap, '/cmu-campus-app/dummy-map/')
 api.add_resource(GetDummyEvent, '/cmu-campus-app/dummy-event/')
+api.add_resource(GetAllEvents, '/cmu-campus-app/featured/')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='0.0.0.0')
