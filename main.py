@@ -142,6 +142,7 @@ class GetDummyEvent(Resource):
             }
         }]
     }
+    return return_value
 
 
 class GetEventDataFromDB(Resource):
