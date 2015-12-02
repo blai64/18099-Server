@@ -122,6 +122,28 @@ class GetPOIDataFromDB(Resource):
 
         return return_value
 
+class GetDummyEvent(Resource):
+    return_value = {
+        "success": True,
+        "data": [{
+            "event_id": 1,
+            "event_data": {
+                "description" : "Web Dev Weekend is a cool event",
+                "startDateTime" : "Nov. 10, 11:00 AM",
+                "fbLink" : "www.facebook.com",
+
+                "location" : {
+                        "lat" : "40.441133", 
+                        "longi" : "-79.943771",
+                        "locationCode" : "HL",
+                        "name" : "Hunt Library"
+                }
+
+            }
+        }]
+    }
+
+
 class GetEventDataFromDB(Resource):
     def get(self):
         parser = reqparse.RequestParser()
@@ -196,7 +218,7 @@ class GetDummyMap(Resource):
                     })
 
         pois.append({"poi_id" : 3,
-                     "description" : "lalalalala",
+                     "description" : "The CUC is where lots of events occur. There is a gym too!!!!",
                      "name" : "CUC",
                      "location" : {
                         "lat" : "40.443272", 
@@ -269,6 +291,7 @@ api.add_resource(GetPOIDataFromDB, '/cmu-campus-app/pois/')
 api.add_resource(GetEventDataFromDB, '/cmu-campus-app/events/')
 api.add_resource(GetMap, '/cmu-campus-app/map/')
 api.add_resource(GetDummyMap, '/cmu-campus-app/dummy-map/')
+api.add_resource(GetDummyEvent, '/cmu-campus-app/dummy-event/')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='0.0.0.0')
