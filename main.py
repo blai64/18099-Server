@@ -92,7 +92,8 @@ class GetPOIDataFromDB(Resource):
             for path in images:
                 print path
 
-            print "HeroImage Path : " + fixImagePath(poi_row[1])
+            heroImage = fixImagePath(poi_row[1])
+            print "HeroImage Path : " + heroImage
             
             return_value = {
                 "success": True,
@@ -101,7 +102,7 @@ class GetPOIDataFromDB(Resource):
                     "poi_data": {
                         "description" : poi_row[2],
                         "images" : images,
-                        "heroImage" : fixImagePath(poi_row[1]),
+                        "heroImage" : heroImage,
                         "name" : poi_row[3]
                         #"location" : {
                         #    "lat" : location_row[0],
@@ -178,6 +179,18 @@ class GetEventDataFromDB(Resource):
 
         return return_value
 
+class GetDummyMap(Resource):
+    def get(self):
+        pois = []
+        events = []
+
+        return_value = {
+            "success": True,
+            "pois" : pois,
+            "events" : events
+        }
+
+        return return_value
 
 class GetMap(Resource):
     def get(self):   
@@ -187,7 +200,7 @@ class GetMap(Resource):
         
         # Query poi table
         pois = []
-        query = ("select id,locationId,description from pois")
+        query = ("select id,locationId,description,name from pois")
         print("query: "+query+"\n")
         cursor.execute(query)
         pois_row = cursor.fetchone()
@@ -197,6 +210,7 @@ class GetMap(Resource):
             location_row = cursorL.fetchone()
             pois.append({"poi_id" : pois_row[0],
                          "description" : pois_row[2],
+                         "name" : pois_row[3],
                          "location" : {
                             "lat" : location_row[0],
                             "longi" : location_row[1],
@@ -207,10 +221,14 @@ class GetMap(Resource):
 
             pois_row = cursor.fetchone()
 
+        events = []
+
+
         if (not (pois.length == 0)):
             return_value = {
                 "success": True,
-                "pois" : pois
+                "pois" : pois,
+                "events" : events
                 }
         else:
             return_value = { "success": False,
@@ -228,6 +246,7 @@ api.add_resource(GetPOIData, '/test/cmu-campus-app/')
 api.add_resource(GetPOIDataFromDB, '/cmu-campus-app/pois/')
 api.add_resource(GetEventDataFromDB, '/cmu-campus-app/events/')
 api.add_resource(GetMap, '/cmu-campus-app/map/')
+api.add_resource(GetDummyMap, '/cmu-campus-app/dummy-map/')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='0.0.0.0')
