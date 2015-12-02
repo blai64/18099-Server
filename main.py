@@ -184,6 +184,17 @@ class GetDummyMap(Resource):
         pois = []
         events = []
 
+        pois.append({"poi_id" : 2,
+                     "description" : "An undersized but slowly improving facility for students at CMU",
+                     "name" : "Hunt Library",
+                     "location" : {
+                        "lat" : "40.441133", 
+                        "longi" : "-79.943771",
+                        "locationCode" : "HL",
+                        "name" : "Hunt Library"
+                        }
+                    })
+
         return_value = {
             "success": True,
             "pois" : pois,
