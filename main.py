@@ -195,6 +195,17 @@ class GetDummyMap(Resource):
                         }
                     })
 
+        pois.append({"poi_id" : 3,
+                     "description" : "lalalalala",
+                     "name" : "CUC",
+                     "location" : {
+                        "lat" : "40.443272", 
+                        "longi" : "-79.941898",
+                        "locationCode" : "HL",
+                        "name" : "Hunt Library"
+                        }
+                    })
+
         return_value = {
             "success": True,
             "pois" : pois,
