@@ -160,7 +160,7 @@ class GetEventDataFromDB(Resource):
         # run sql queries
         
         # Query poi table
-        query = ("select id,name,heroImage,host,description,startTime,lat,lng,location from events where id="+str(event_id))
+        query = ("select name,heroImage,host,description,startTime,lat,lng,location from events where eventId="+str(event_id))
         print("query: "+query+"\n")
         cursor.execute(query)
         event_row = cursor.fetchone()
@@ -174,15 +174,15 @@ class GetEventDataFromDB(Resource):
                 "data": [{
                     "event_id": event_id,
                     "event_data": {
-                        "name" : event_row[1],
-                        "heroImage" : fixImagePath(event_row[2]),
-                        "host" : event_row[3],
-                        "description" : event_row[4],
-                        "startDateTime" : event_row[5],
+                        "name" : event_row[0],
+                        "heroImage" : fixImagePath(event_row[1]),
+                        "host" : event_row[2],
+                        "description" : event_row[3],
+                        "startDateTime" : event_row[4],
                         "location" : {
-                            "lat" : event_row[6],
-                            "longi" : event_row[7],
-                            "name" : event_row[8],
+                            "lat" : event_row[5],
+                            "longi" : event_row[6],
+                            "name" : event_row[7],
                         }
 
                     }
