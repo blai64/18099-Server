@@ -169,6 +169,8 @@ class GetEventDataFromDB(Resource):
             print ("Event found: "+str(event_id)+".\n")
             # ID number (starting from 0) corresponds to columns passed to select above
             
+            print "Event hero image: " + fixImagePath(event_row[1])
+
             return_value = {
                 "success": True,
                 "data": [{
