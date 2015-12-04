@@ -174,9 +174,9 @@ class GetEventDataFromDB(Resource):
                 "data": [{
                     "event_id": event_id,
                     "event_data": {
-                        "name" : event_row[1]
-                        "heroImage" : fixImagePath(event_row[2]),event
-                        "host" : event_row[3]
+                        "name" : event_row[1],
+                        "heroImage" : fixImagePath(event_row[2]),
+                        "host" : event_row[3],
                         "description" : event_row[4],
                         "startDateTime" : event_row[5],
                         "location" : {
