@@ -222,6 +222,7 @@ class GetAllEvents(Resource):
                         "name" : event_row[8],
                     }
                 }
+            })
             events_row = cursor.fetchone()
             
         if (not (events.length == 0)):
