@@ -170,6 +170,8 @@ class GetEventDataFromDB(Resource):
             # ID number (starting from 0) corresponds to columns passed to select above
             
             print "Event hero image: " + fixImagePath(event_row[1])
+            print "startTime"  +  event_row[4]
+            print "Location"  +  event_row[7]
 
             return_value = {
                 "success": True,
@@ -180,7 +182,7 @@ class GetEventDataFromDB(Resource):
                         "heroImage" : fixImagePath(event_row[1]),
                         "host" : event_row[2],
                         "description" : event_row[3],
-                        "startDateTime" : event_row[4],
+                        "startTime" : event_row[4],
                         "location" : {
                             "lat" : event_row[5],
                             "longi" : event_row[6],
@@ -201,31 +203,27 @@ class GetEventDataFromDB(Resource):
 class GetAllEvents(Resource):
     def get(self):
         events = []
-        query = ("select id,locationId,description,name,startDateTime,heroImage from events")
+        query = ("select eventId,name,heroImage,host,description,startTime,lat,lng,location from events")
         print("query: "+query+"\n")
         cursor.execute(query)
         events_row = cursor.fetchone()
         while (events_row != None):
-            query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(pois_row[1]))
-            cursorL.execute(query)
-            location_row = cursorL.fetchone()
-            pois.append({"event_id" : event_row[0],
-                         "description" : event_row[2],
-                         "name" : event_row[3],
-                         "startDateTime" : event_row[4],
-                         "heroImage" : fixImagePath(event_row[5]),
-                         "location" : {
-                            "lat" : location_row[0],
-                            "longi" : location_row[1],
-                            "locationCode" : location_row[2],
-                            "name" : location_row[3]
-                            }
-                        })
-
+            pois.append({
+                "event_id": event_row[0],
+                "event_data": {
+                    "name" : event_row[1],
+                    "heroImage" : fixImagePath(event_row[2]),
+                    "host" : event_row[3],
+                    "description" : event_row[4],
+                    "startDateTime" : event_row[5],
+                    "location" : {
+                        "lat" : event_row[6],
+                        "longi" : event_row[7],
+                        "name" : event_row[8],
+                    }
+                }
             events_row = cursor.fetchone()
-
-
-
+            
         if (not (events.length == 0)):
             return_value = {
                 "success": True,
