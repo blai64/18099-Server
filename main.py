@@ -209,7 +209,7 @@ class GetAllEvents(Resource):
         cursor.execute(query)
         events_row = cursor.fetchone()
         while (events_row != None):
-            pois.append({
+            events.append({
                 "event_id": event_row[0],
                 "event_data": {
                     "name" : event_row[1],
