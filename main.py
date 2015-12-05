@@ -226,7 +226,7 @@ class GetAllEvents(Resource):
             })
             event_row = cursor.fetchone()
             
-        if (not (events.length == 0)):
+        if (not (len(events) == 0)):
             return_value = {
                 "success": True,
                 "events" : events
@@ -303,7 +303,7 @@ class GetMap(Resource):
         events = []
 
 
-        if (not (pois.length == 0)):
+        if (not (len(pois) == 0)):
             return_value = {
                 "success": True,
                 "pois" : pois,
