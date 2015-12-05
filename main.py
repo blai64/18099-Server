@@ -207,8 +207,8 @@ class GetAllEvents(Resource):
         query = ("select eventId,name,heroImage,host,description,startTime,lat,lng,location from events")
         print("query: "+query+"\n")
         cursor.execute(query)
-        events_row = cursor.fetchone()
-        while (events_row != None):
+        event_row = cursor.fetchone()
+        while (event_row != None):
             events.append({
                 "event_id": event_row[0],
                 "event_data": {
@@ -224,7 +224,7 @@ class GetAllEvents(Resource):
                     }
                 }
             })
-            events_row = cursor.fetchone()
+            event_row = cursor.fetchone()
             
         if (not (events.length == 0)):
             return_value = {
