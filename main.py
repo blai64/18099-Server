@@ -202,6 +202,7 @@ class GetEventDataFromDB(Resource):
 
 class GetAllEvents(Resource):
     def get(self):
+        cursor = cnx.cursor()
         events = []
         query = ("select eventId,name,heroImage,host,description,startTime,lat,lng,location from events")
         print("query: "+query+"\n")
@@ -215,7 +216,7 @@ class GetAllEvents(Resource):
                     "heroImage" : fixImagePath(event_row[2]),
                     "host" : event_row[3],
                     "description" : event_row[4],
-                    "startDateTime" : event_row[5],
+                    "startTime" : event_row[5],
                     "location" : {
                         "lat" : event_row[6],
                         "longi" : event_row[7],
