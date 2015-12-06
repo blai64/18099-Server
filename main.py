@@ -204,7 +204,7 @@ class GetAllEvents(Resource):
     def get(self):
         cursor = cnx.cursor()
         events = []
-        query = ("select eventId,name,heroImage,host,description,startTime,lat,lng,location,date from events")
+        query = ("select eventId,name,heroImage,host,description,startTime,lat,lng,location,dayOfEvent from events")
         print("query: "+query+"\n")
         cursor.execute(query)
         event_row = cursor.fetchone()
