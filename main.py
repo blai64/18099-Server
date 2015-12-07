@@ -282,7 +282,7 @@ class GetMap(Resource):
         
         # Query poi table
         pois = []
-        query = ("select id,description,name,lat,lng from pois")
+        query = ("select id,description,name,lat,lng,pathToVR from pois")
         print("query: "+query+"\n")
         cursor.execute(query)
         pois_row = cursor.fetchone()
@@ -290,18 +290,39 @@ class GetMap(Resource):
             # query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(pois_row[1]))
             # cursorL.execute(query)
             # location_row = cursorL.fetchone()
-            pois.append({"poi_id" : pois_row[0],
-                         "description" : pois_row[1],
-                         "name" : pois_row[2],
-                         "location" : {
-                            "lat" : location_row[3],
-                            "longi" : location_row[4],
-                            }
-                        })
+            pois.append({
+                "poi_id" : pois_row[0],
+                "description" : pois_row[1],
+                "name" : pois_row[2],
+                "location" : {
+                    "lat" : pois_row[3],
+                    "longi" : pois_row[4],
+                },
+                "pathToVR" : fixImagePath(pathToVR)
+            })
 
             pois_row = cursor.fetchone()
 
         events = []
+        query = ("select eventId,name,description,lat,lng from events")
+        print("query: "+query+"\n")
+        cursor.execute(query)
+        eventa_row = cursor.fetchone()
+        while (events_row != None):
+            # query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(pois_row[1]))
+            # cursorL.execute(query)
+            # location_row = cursorL.fetchone()
+            events.append({"event_id" : events_row[0],
+                         "name" : events_row[1],
+                         "description" : events_row[2],
+                         "location" : {
+                            "lat" : events_row[3],
+                            "longi" : events_row[4],
+                            }
+                        })
+
+            events_row = cursor.fetchone()
+
 
 
         if (not (len(pois) == 0)):
