@@ -280,7 +280,7 @@ class GetMap(Resource):
         
         # Query poi table
         pois = []
-        query = ("select id,locationId,description,name,lat,lng from pois")
+        query = ("select id,description,name,lat,lng from pois")
         print("query: "+query+"\n")
         cursor.execute(query)
         pois_row = cursor.fetchone()
@@ -289,11 +289,11 @@ class GetMap(Resource):
             # cursorL.execute(query)
             # location_row = cursorL.fetchone()
             pois.append({"poi_id" : pois_row[0],
-                         "description" : pois_row[2],
-                         "name" : pois_row[3],
+                         "description" : pois_row[1],
+                         "name" : pois_row[2],
                          "location" : {
-                            "lat" : location_row[4],
-                            "longi" : location_row[5],
+                            "lat" : location_row[3],
+                            "longi" : location_row[4],
                             }
                         })
 
