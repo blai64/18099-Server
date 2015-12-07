@@ -298,7 +298,7 @@ class GetMap(Resource):
                     "lat" : pois_row[3],
                     "longi" : pois_row[4],
                 },
-                "pathToVR" : fixImagePath(pathToVR)
+                "pathToVR" : fixImagePath(pois_row[5])
             })
 
             pois_row = cursor.fetchone()
@@ -307,7 +307,7 @@ class GetMap(Resource):
         query = ("select eventId,name,description,lat,lng from events")
         print("query: "+query+"\n")
         cursor.execute(query)
-        eventa_row = cursor.fetchone()
+        events_row = cursor.fetchone()
         while (events_row != None):
             # query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(pois_row[1]))
             # cursorL.execute(query)
@@ -320,7 +320,6 @@ class GetMap(Resource):
                             "longi" : events_row[4],
                             }
                         })
-
             events_row = cursor.fetchone()
 
 
