@@ -245,6 +245,7 @@ class GetDummyMap(Resource):
         pois.append({"poi_id" : 2,
                      "description" : "An undersized but slowly improving facility for students at CMU",
                      "name" : "Hunt Library",
+                     "vr" : "http://52.27.55.252/content/poi/fence/media/krpano/vtour/tour.html",
                      "location" : {
                         "lat" : "40.441133", 
                         "longi" : "-79.943771",
@@ -256,6 +257,7 @@ class GetDummyMap(Resource):
         pois.append({"poi_id" : 3,
                      "description" : "The CUC is where lots of events occur. There is a gym too!!!!",
                      "name" : "CUC",
+                     "vr" : "http://52.27.55.252/content/poi/fence/media/krpano/vtour/tour.html",
                      "location" : {
                         "lat" : "40.443272", 
                         "longi" : "-79.941898",
