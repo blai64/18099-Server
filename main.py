@@ -290,6 +290,8 @@ class GetMap(Resource):
             # query_location = ("select lat,longi,locationCode,name,description from locations where id="+str(pois_row[1]))
             # cursorL.execute(query)
             # location_row = cursorL.fetchone()
+            print "before fix : " = pois_row[5]
+            print "pathToVR : " + fixImagePath(pois_row[5])
             pois.append({
                 "poi_id" : pois_row[0],
                 "description" : pois_row[1],
